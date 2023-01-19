@@ -1,0 +1,23 @@
+@media (max-width: 767px) {
+
+    /* styles for devices with screen width less than 767px */
+    h1 {
+        font-size: 24px;
+    }
+
+    label {
+        font-size: 14px;
+    }
+
+    .form-control {
+        width: 100%;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    /* styles for devices with screen width between 768px and 991px */
+}
+
+@media (min-width: 992px) {
+    /* styles for devices with screen width greater than 992px */
+}
