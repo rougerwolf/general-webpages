@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Password Strength Meter</title>
+    <style>
+        /* Style the password requirements */
+        .password-requirements {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        .password-requirements li {
+            margin: 5px 0;
+            padding: 0;
+            font-size: 14px;
+            color: gray;
+        }
+        .password-requirements .invalid {
+            color: red;
+        }
+        .password-requirements .valid {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <h1>Password Strength Meter</h1>
+    <p>Enter a new password that meets the following requirements:</p>
+    <ul class="password-requirements">
+        <li id="require-length">At least 8 characters</li>
+        <li id="require-letter">At least one letter</li>
+        <li id="require-number">At least one number</li>
+    </ul>
+
+    <p>
+        <label for="password">New Password:</label>
+        <input type="password" id="password" name="password">
+        <span id="password-status"></span>
+    </p>
+
+    <script>
+        // Get the password input and status span elements
+        var password = document.getElementById("password");
+        var passwordStatus = document.getElementById("password-status");
+
+        // Define the password requirements and validity status
+        var requirements = [
+            { id: "require-length", regex: /^.{8,}$/, isValid: false },
+            { id: "require-letter", regex: /[a-zA-Z]/, isValid: false },
+            { id: "require-number", regex: /\d/, isValid: false }
+        ];
+
+        // Update the password status based on the input value
+        password.addEventListener("input", function() {
+            var value = password.value;
+
+            // Check each requirement and update the validity status
+            for (var i = 0; i < requirements.length; i++) {
+                var req = requirements[i];
+                var li = document.getElementById(req.id);
+
+                if (req.regex.test(value)) {
+                    li.classList.remove("invalid");
+                    li.classList.add("valid");
+                    req.isValid = true;
+                } else {
+                    li.classList.remove("valid");
+                    li.classList.add("invalid");
+                    req.isValid = false;
+                }
+            }
+
+            // Check if all requirements are met and update the status span
+            var isValid = requirements.every(function(req) { return req.isValid; });
+            passwordStatus.innerHTML = isValid ? "<span style='color:green'>✔</span>" : "<span style='color:red'>✖</span>";
+        });
+    </script>
+</body>
+</html>
